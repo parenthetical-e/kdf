@@ -72,40 +72,34 @@ The data is written to a standard `.hdf5` file. Besides the limited API, the onl
 # Examples
 
 ## Python 
-    
-    >>> import numpy as np
-    >>> from kdf import save_kdf, load_kdf
-    >>> filename = 'demo'
-    >>> # Make some data
-    >>> dog = np.ones(1000)
-    >>> cat = np.random.random(10)
-    >>> human = 0
-    >>> # save it
-    >>> save_kdf(filename, dog=dog, cat=cat, human=human)
-    >>> # get it back again
-    >>> data = load_kdf(filename)  # data is a dict of arrays
-    >>> print(data)
-    
+
+```python    
+>>> import numpy as np
+>>> from kdf import save_kdf, load_kdf
+>>> filename = 'demo'
+>>> # Make some data
+>>> dog = np.ones(1000)
+>>> cat = np.random.random(10)
+>>> human = 0
+>>> # save it
+>>> save_kdf(filename, dog=dog, cat=cat, human=human)
+>>> # get it back again
+>>> data = load_kdf(filename)  # data is a dict of arrays
+>>> print(data)
+```
+
 ## R
 
-    > library(kdf) 
-    > filename <- 'demo'
-    > # Make some data
-    > dog <- rep(1, 1000)
-    > cat <- rnorm(10)
-    > human <- 0
-    > # save it
-    > save_kdf(filename, dog=dog, cat=cat, human=human)
-    > # get it back again
-    > data <- load_kdf(filename)  # data is a dict of arrays
-    > print(data)
-
-
-* And matlab
-
-    TODO
-
-* And Julia
-
-    TODO
-
+```r
+> library(kdf) 
+> filename <- 'demo'
+> # Make some data
+> dog <- rep(1, 1000)
+> cat <- rnorm(10)
+> human <- 0
+> # save it
+> save_kdf(filename, dog=dog, cat=cat, human=human)
+> # get it back again
+> data <- load_kdf(filename)  # data is a dict of arrays
+> print(data)
+```
