@@ -22,7 +22,16 @@ save_kdf <- function(filename, ...){
 
   # Init, and save
   dat <- h5createFile(filename)
-  x <- list(...)
+
+  # if length of ... is one assume it's a list
+  # otherwise process ... as key-value stream
+  if (length(...) == 1) {
+    x <- ...
+  } else {
+    x <- list(...)
+  }
+
+  # and save.
   for(k in names(x)){
     h5write(x[k], file=filename, k)
   }

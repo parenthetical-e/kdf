@@ -3,16 +3,23 @@ import os
 import numpy as np
 
 
-def save_kdf(filename, **kwds):
+def save_kdf(filename, *args, **kwds):
     """Save several arrays into a single HDF5 filename.
 
     Parameters
     ----------
     filename : str or filename
         The filename name (string) where the data will be saved. 
+    data : dict, optional
+        A data structure to write to file
     kwds : Keyword arguments, optional
         Key-array[-like] pairs 
         (e.g. a=np.asarray([1,2,3]), b=10, c=['i', 'd'))
+    
+    Note
+    ----
+    Can't provide both a dict and keywords. Only one or the 
+    other is acceptable.
 
     Returns
     -------
@@ -23,16 +30,28 @@ def save_kdf(filename, **kwds):
         filename += '.hdf5'
 
     # Overwrite without warning
-    if os.path.isfilename(filename):
+    if os.path.isfile(filename):
         os.remove(filename)
 
     fi = h5py.File(filename, 'w')
 
-    for k, v in kwds.items():
+    # Look for args
+    if len(args) > 0:
+        if len(kwds) > 0:
+            raise ValueError("Can't provide both a dict and keys")
+        if len(args) == 1:
+            towrite = args[0]  # Assume arg[0] is dict-like
+        else:
+            raise ValueError("Can only pass one dataset.")
+    # args was empty, so we're writing kwds
+    else:
+        towrite = kwds  
+
+    for k, v in towrite.items():
         path = "/{}".format(k)
         fi.create_dataset(path, data=v)
     
-    f.create_dataset('kdf', data=1)
+    fi.create_dataset('kdf', data=1)
     fi.close()
 
 
