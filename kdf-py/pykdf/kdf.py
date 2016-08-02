@@ -77,7 +77,7 @@ def load_kdf(filename):
         fi['kdf']
     except:
         raise IOError("{} is not a kdf file".format(filename))
-    if fi['hdf'] != 1:
+    if fi['kdf'].value != 1:
         raise IOError("{} is not a kdf file".format(filename))
 
     # Parse the loaded into a dict, and we're done here.
